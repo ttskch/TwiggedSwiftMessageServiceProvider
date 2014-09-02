@@ -2,7 +2,7 @@
     "name": "qckanemoto/twigmailer-service-provider",
     "description":"Twig templated email sender service provider for the Silex microframework.",
     "keywords":["Silex", "Twig", "mailer"],
-    "homepage": "",
+    "homepage": "https://github.com/qckanemoto/TwigMailerServiceProvider",
     "config":{
         "bin-dir": "bin"
     },
@@ -15,7 +15,7 @@
     ],
     "autoload":{
         "psr-4":{
-            "Quartet\\Silex\\Provider": "src/"
+            "Quartet\\Silex\\Provider\\": "src/"
         }
     }
 }
