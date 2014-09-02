@@ -1,0 +1,21 @@
+{
+    "name": "qckanemoto/twigmailer-service-provider",
+    "description":"Twig templated email sender service provider for the Silex microframework.",
+    "keywords":["Silex", "Twig", "mailer"],
+    "homepage": "",
+    "config":{
+        "bin-dir": "bin"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Takashi Kanemoto",
+            "email": "kanemoto.takashi@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "Quartet\\Silex\\Provider": "src/"
+        }
+    }
+}
