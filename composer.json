@@ -1,9 +1,9 @@
 {
     "name": "qckanemoto/twigmailer-service-provider",
-    "description":"Twig templated email sender service provider for the Silex microframework.",
-    "keywords":["Silex", "Twig", "mailer"],
+    "description": "Twig templated email sender service provider for the Silex microframework.",
+    "keywords": ["Silex", "Twig", "mailer"],
     "homepage": "https://github.com/qckanemoto/TwigMailerServiceProvider",
-    "config":{
+    "config": {
         "bin-dir": "bin"
     },
     "license": "MIT",
@@ -13,9 +13,19 @@
             "email": "kanemoto.takashi@gmail.com"
         }
     ],
-    "autoload":{
-        "psr-4":{
-            "Quartet\\Silex\\Provider\\": "src/"
+    "require": {
+        "php": ">=5.3.3",
+        "silex/silex": "~1.0",
+        "symfony/form": "~2.3",
+        "swiftmailer/swiftmailer": "5.2.*@dev",
+        "twig/twig": "~1.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quartet\\Silex\\": "src/"
         }
     }
 }
