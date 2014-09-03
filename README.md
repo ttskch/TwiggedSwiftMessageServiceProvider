@@ -16,7 +16,7 @@ You **must** register both `TwigServiceProvider` and `SwiftmailerServicePorvider
 ```php
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
-$app->register(new TwigMailerServiceProvider());
+$app->register(new Quartet\Silex\Provider\TwigMailerServiceProvider());
 ```
 
 Then you can send Twig templated email as below:
