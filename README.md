@@ -55,7 +55,7 @@ These fields can be defined.
 
 ## Use submitted form data in Twig template
 
-You also can use submiteed form data in Twig template easily.
+You also can use submitted form data in Twig template easily.
 Labels and values of each fields can be used as below:
 
  * `{{ vars.[field-name].label }}`
@@ -94,7 +94,7 @@ Offcourse you also can access to your custom field type as below:
  * `{{ vars.[parent-field].[child-field].label }}`
  * `{{ vars.[parent-field].[child-field].value }}`
 
-## Options for debuging
+## Options for debugging
 
 Using not so much `$app['mailer']` but `$app['twig_mailer']` allows you a debugging feature.
 
