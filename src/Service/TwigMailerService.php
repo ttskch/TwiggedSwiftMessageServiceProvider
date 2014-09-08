@@ -28,7 +28,7 @@ class TwigMailerService
      * @param Form $form
      * @return \Swift_Mime_MimePart
      */
-    public function buildMessage($templatePath, Form $form = null)
+    public function buildMessage($templatePath, array $vars = array(), Form $form = null)
     {
         /** @var $template \Twig_Template */
         $template = $this->twig->loadTemplate($templatePath);
@@ -36,8 +36,9 @@ class TwigMailerService
 
         $message = \Swift_Message::newInstance();
 
-        // build vars hashtable from Form.
-        $vars = $form ? $this->getVars($form) : array();
+        // build vars hashtable from Form and merge to $vars.
+        $formVars = $form ? $this->getVars($form) : array();
+        $vars = array_merge($vars, $formVars);
         $vars = compact('vars');
 
         // build message from twig template.

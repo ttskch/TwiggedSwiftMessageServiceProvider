@@ -84,7 +84,7 @@ For example:
 
 $form->handleRequest($request);
 if ($form->isValid()) {
-    $message = $app['twig_mailer']->buildMessage('email.txt.twig', $form);
+    $message = $app['twig_mailer']->buildMessage('email.txt.twig', array(), $form);
     $app['twig_mailer']->send($message);
 }
 ```
