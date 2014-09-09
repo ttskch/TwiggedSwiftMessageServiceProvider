@@ -1,0 +1,5 @@
+{% block body %}
+{% for item in form %}
+{{ item.label }}: {{ item.value }}
+{% endfor %}
+{% endblock %}

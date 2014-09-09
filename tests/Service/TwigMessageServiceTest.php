@@ -1,9 +1,9 @@
 <?php
-
 namespace Quartet\Silex\Service;
 
-class TwigMailerServiceTest extends \PHPUnit_Framework_TestCase
+class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var TwigMessageService */
     protected $service;
 
     protected function setUp()
@@ -12,6 +12,7 @@ class TwigMailerServiceTest extends \PHPUnit_Framework_TestCase
 
     public function test()
     {
+        // todo: to test service with some mocks.
         $this->assertTrue(true);
     }
 }

@@ -1,8 +1,8 @@
 {
-    "name": "qckanemoto/twigmailer-service-provider",
-    "description": "Twig templated email sender service provider for the Silex microframework.",
-    "keywords": ["Silex", "Twig", "mailer"],
-    "homepage": "https://github.com/qckanemoto/TwigMailerServiceProvider",
+    "name": "qckanemoto/twig-message-service-provider",
+    "description": "Twig templated email builder service provider for the Silex microframework.",
+    "keywords": ["Silex", "Twig", "Swift_Message"],
+    "homepage": "https://github.com/qckanemoto/TwigMessageServiceProvider",
     "config": {
         "bin-dir": "bin"
     },
@@ -17,8 +17,10 @@
         "php": ">=5.3.3",
         "silex/silex": "~1.0",
         "symfony/form": "~2.3",
+        "symfony/security-csrf": "~2.4",
         "swiftmailer/swiftmailer": "5.2.*@dev",
-        "twig/twig": "~1.12"
+        "twig/twig": "~1.12",
+        "tijsverkoyen/css-to-inline-styles": "~1.5"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"

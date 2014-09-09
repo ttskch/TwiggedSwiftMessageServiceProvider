@@ -1,9 +1,9 @@
 <?php
-
 namespace Quartet\Silex\Provider;
 
-class TwigMailerServiceProviderTest extends \PHPUnit_Framework_TestCase
+class TwigMessageServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var TwigMessageServiceProvider */
     protected $provider;
 
     protected function setUp()
@@ -12,6 +12,7 @@ class TwigMailerServiceProviderTest extends \PHPUnit_Framework_TestCase
 
     public function test()
     {
+        // todo: to test provider with some mocks.
         $this->assertTrue(true);
     }
 }
