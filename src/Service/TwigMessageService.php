@@ -101,9 +101,18 @@ class TwigMessageService
         $extension = new TwigMessageExtension();
         $identifier = $extension->getName();
 
-        $replacedBody = preg_replace("/%{$identifier}%(.*)%/", $message->embed(\Swift_Image::fromPath('$1')), $body);
+        preg_match_all("/%{$identifier}%([^%]*)%/", $body, $matches);
 
-        $message->setBody($replacedBody);
+        for ($i = 0; isset($matches[0][$i]); $i++) {
+            $pattern = $matches[0][$i];
+
+            $filePath = $matches[1][$i];
+            $replacement = $message->embed(\Swift_Image::fromPath($filePath));
+
+            $body = str_replace($pattern, $replacement, $body);
+        }
+
+        $message->setBody($body);
 
         return $message;
     }
