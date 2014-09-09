@@ -21,6 +21,6 @@ class TwigMessageExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'quartet_silex_twigmessage_extension';
+        return 'quartet_silex_twig_message_extension';
     }
 }

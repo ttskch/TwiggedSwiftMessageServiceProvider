@@ -108,6 +108,30 @@ class TwigMessageService
         return $message;
     }
 
+    /**
+     * @param \Swift_Message $message
+     * @return string
+     */
+    public function renderBody(\Swift_Message $message)
+    {
+        $body = $message->getBody();
+
+        $extension = new TwigMessageExtension();
+        $identifier = $extension->getName();
+
+        preg_match("/%{$identifier}%(.*\.([^.]+))%/", $body, $matches);
+
+        $pattern = $matches[0];
+
+        $filePath = $matches[1];
+        $ext = $matches[2];
+        $replacement = "data:image/{$ext};base64," . base64_encode(file_get_contents($filePath));
+
+        $replacedBody = str_replace($pattern, $replacement, $body);
+
+        return $replacedBody;
+    }
+
     private function getFormData(Form $form)
     {
         $data = array();
@@ -129,17 +153,6 @@ class TwigMessageService
         }
 
         return $data;
-    }
-
-    /**
-     * @param \Swift_Message $message
-     * @return string
-     */
-    public function renderBody(\Swift_Message $message)
-    {
-        $body = $message->getBody();
-
-        return $body;
     }
 
     private function humanize($text)

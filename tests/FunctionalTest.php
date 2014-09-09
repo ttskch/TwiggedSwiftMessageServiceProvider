@@ -21,6 +21,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @large
      */
     public function create_simple_twig_message()
     {
@@ -39,6 +40,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @large
      */
     public function create_twig_message_with_extends()
     {
@@ -50,6 +52,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @large
      */
     public function create_twig_message_with_vars()
     {
@@ -67,6 +70,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @large
      */
     public function create_twig_message_with_form()
     {
@@ -97,6 +101,7 @@ EOT;
 
     /**
      * @test
+     * @large
      */
     public function create_html_twig_message()
     {
@@ -109,6 +114,7 @@ EOT;
 
     /**
      * @test
+     * @large
      *
      * You can make inline-styled html from unstyled html and css strings.
      * To allow recipients of your html email to receive it with Gmail, you will have to make inline-styled html body.
@@ -129,6 +135,7 @@ EOT;
 
     /**
      * @test
+     * @large
      *
      * You can embed images into message body by following steps.
      *
@@ -139,13 +146,37 @@ EOT;
      */
     public function create_html_twig_message_with_embedded_images()
     {
+        $imagePath = __DIR__ . '/templates/images/silex.png';
+
         /** @var \Swift_Message $message */
         $message = $this->app['twig_message']->buildMessage('embedding.html.twig', array(
-            'image_path' => __DIR__ . '/templates/images/silex.png',
+            'image_path' => $imagePath,
         ));
+
+        $this->assertContains($imagePath, $message->getBody());
 
         $message = $this->app['twig_message']->finishEmbedImage($message);
 
         $this->assertContains('<img src="cid:', $message->getBody());
+    }
+
+    /**
+     * @test
+     * @large
+     *
+     * You can get html with embedded images which are base64-encoded so that it can be previewed on browser.
+     */
+    public function create_html_twig_message_with_embedded_images_and_preview()
+    {
+        $imagePath = __DIR__ . '/templates/images/silex.png';
+
+        /** @var \Swift_Message $message */
+        $message = $this->app['twig_message']->buildMessage('embedding.html.twig', array(
+            'image_path' => $imagePath,
+        ));
+
+        $html = $this->app['twig_message']->renderBody($message);
+
+        $this->assertContains('<img src="data:image/png;base64,', $html);
     }
 }
