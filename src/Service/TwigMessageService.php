@@ -119,17 +119,19 @@ class TwigMessageService
         $extension = new TwigMessageExtension();
         $identifier = $extension->getName();
 
-        preg_match("/%{$identifier}%(.*\.([^.]+))%/", $body, $matches);
+        preg_match_all("/%{$identifier}%([^%]*\.([^%.]+))%/", $body, $matches);
 
-        $pattern = $matches[0];
+        for ($i = 0; isset($matches[0][$i]); $i++) {
+            $pattern = $matches[0][$i];
 
-        $filePath = $matches[1];
-        $ext = $matches[2];
-        $replacement = "data:image/{$ext};base64," . base64_encode(file_get_contents($filePath));
+            $filePath = $matches[1][$i];
+            $ext = $matches[2][$i];
+            $replacement = "data:image/{$ext};base64," . base64_encode(file_get_contents($filePath));
 
-        $replacedBody = str_replace($pattern, $replacement, $body);
+            $body = str_replace($pattern, $replacement, $body);
+        }
 
-        return $replacedBody;
+        return $body;
     }
 
     private function getFormData(Form $form)
