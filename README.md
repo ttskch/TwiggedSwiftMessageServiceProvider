@@ -126,10 +126,16 @@ To allow recipients of your html email to receive it with Gmail, you will have t
 
 $message = $app['twig_message']->buildMessage('email.html.twig');
 
-$style = file_get_contents('style.css');
+$style = file_get_contents('/path/to/style.css');
 
 $message = $app['twig_message']->setInlineStyle($message, $style);
 ```
+
+> **Note**
+> This functionality is using `mb_convert_encoding()` with `'auto'` internally. So if you use this you **must** set `mbstring.language` in php.ini or call `mb_language('your_language')` on ahead.
+>
+> **注意**
+> この機能は内部的に `mb_convert_encoding()` に `'auto'` を渡して実行します。なので、php.ini で `mbstring.language` を設定するか、`mb_language('Japanese')` を事前に実行しておく必要があります。
 
 ## Embed some image files into message body
 
@@ -147,7 +153,7 @@ You can embed images into message body as below:
 // in your controller.
 
 $message = $app['twig_message']->buildMessage('email.html.twig', array(
-    'image_path' => '/full/path/to/image/file',
+    'image_path' => '/path/to/image/file',
 ));
 
 $message = $app['twig_message']->finishEmbedImage($message);

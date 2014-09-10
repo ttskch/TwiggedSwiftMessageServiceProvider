@@ -83,6 +83,7 @@ class TwigMessageService
         }
 
         $html = $message->getBody();
+        $html = mb_convert_encoding($html, 'html-entities', 'auto');
         $setter = new CssToInlineStyles($html, $style);
         $styledHtml = $setter->convert();
         $message->setBody($styledHtml);
