@@ -3,6 +3,8 @@
 namespace Quartet\Silex\Service;
 
 use Quartet\Silex\Exception\RuntimeException;
+use Quartet\Silex\Service\ImageEmbedder\Embedder;
+use Quartet\Silex\Service\ImageEmbedder\Placeholder;
 use Quartet\Silex\Twig\Extension\TwigMessageExtension;
 use Silex\Application;
 use Symfony\Component\Form\Form;
@@ -11,15 +13,17 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 class TwigMessageService
 {
     private $twig;
+    private $embedder;
 
     /**
      * @param \Twig_Environment $twig
      * @param \Swift_Mailer $mailer
      * @param array $options
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig_Environment $twig, Embedder $embedder)
     {
         $this->twig = $twig;
+        $this->embedder = $embedder;
     }
 
     /**
@@ -99,18 +103,12 @@ class TwigMessageService
     {
         $body = $message->getBody();
 
-        $extension = new TwigMessageExtension();
-        $identifier = $extension->getName();
+        /** @var \Quartet\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
+        $placeholders = $this->embedder->extractPlaceholders($body);
 
-        preg_match_all("/%{$identifier}%([^%]*)%/", $body, $matches);
-
-        for ($i = 0; isset($matches[0][$i]); $i++) {
-            $pattern = $matches[0][$i];
-
-            $filePath = $matches[1][$i];
-            $replacement = $message->embed(\Swift_Image::fromPath($filePath));
-
-            $body = str_replace($pattern, $replacement, $body);
+        foreach ($placeholders as $placeholder) {
+            $replacement = $message->embed(\Swift_Image::fromPath($placeholder->getImagePath()));
+            $body = str_replace($placeholder->getPlaceholder(), $replacement, $body);
         }
 
         $message->setBody($body);
@@ -126,19 +124,16 @@ class TwigMessageService
     {
         $body = $message->getBody();
 
-        $extension = new TwigMessageExtension();
-        $identifier = $extension->getName();
+        /** @var \Quartet\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
+        $placeholders = $this->embedder->extractPlaceholders($body);
 
-        preg_match_all("/%{$identifier}%([^%]*\.([^%.]+))%/", $body, $matches);
+        foreach ($placeholders as $placeholder) {
 
-        for ($i = 0; isset($matches[0][$i]); $i++) {
-            $pattern = $matches[0][$i];
+            $splFile = new \SplFileInfo($placeholder->getImagePath());
+            $ext = $splFile->getExtension();
 
-            $filePath = $matches[1][$i];
-            $ext = $matches[2][$i];
-            $replacement = "data:image/{$ext};base64," . base64_encode(file_get_contents($filePath));
-
-            $body = str_replace($pattern, $replacement, $body);
+            $replacement = "data:image/{$ext};base64," . base64_encode(file_get_contents($placeholder->getImagePath()));
+            $body = str_replace($placeholder->getPlaceholder(), $replacement, $body);
         }
 
         return $body;

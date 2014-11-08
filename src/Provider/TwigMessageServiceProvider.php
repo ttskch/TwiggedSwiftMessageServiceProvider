@@ -2,6 +2,7 @@
 
 namespace Quartet\Silex\Provider;
 
+use Quartet\Silex\Service\ImageEmbedder\Embedder;
 use Quartet\Silex\Service\TwigMessageService;
 use Quartet\Silex\Twig\Extension\TwigMessageExtension;
 use Silex\Application;
@@ -25,11 +26,11 @@ class TwigMessageServiceProvider implements ServiceProviderInterface
             }
 
             $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
-                $twig->addExtension(new TwigMessageExtension());
+                $twig->addExtension(new TwigMessageExtension(new Embedder()));
                 return $twig;
             }));
 
-            return new TwigMessageService($app['twig']);
+            return new TwigMessageService($app['twig'], new Embedder());
         });
     }
 

@@ -1,10 +1,18 @@
 <?php
 namespace Quartet\Silex\Twig\Extension;
 
+use Quartet\Silex\Service\ImageEmbedder\Embedder;
 use Silex\Application;
 
 class TwigMessageExtension extends \Twig_Extension
 {
+    private $embedder;
+
+    public function __construct(Embedder $embedder)
+    {
+        $this->embedder = $embedder;
+    }
+
     public function getFunctions()
     {
         return array(
@@ -14,9 +22,7 @@ class TwigMessageExtension extends \Twig_Extension
 
     public function embedImage($imagePath)
     {
-        $identifier = $this->getName();
-
-        return "%{$identifier}%{$imagePath}%";
+        return $this->embedder->getPlaceholder($imagePath)->getPlaceholder();
     }
 
     public function getName()
