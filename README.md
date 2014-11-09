@@ -39,6 +39,7 @@ Hello [Example] World!
 // in your controller.
 
 $message = $app['twig_message']->buildMessage('email.txt.twig');
+$message->setTo('hoge@example.com');
 $app['mailer']->send($message);
 ```
 
@@ -58,18 +59,19 @@ These fields can be defined.
 
 Offcourse you can pass variables and use them in Twig template with `{{ vars }}` as below:
 
-```
+```twig
 {# email.txt.twig #}
 
 {% block subject %}Welcome to {{ vars.site_title }}!{% endblock %}
 ```
 
-```
+```php
 // in your controller.
 
 $message = $app['twig_message']->buildMessage('email.txt.twig', array(
     'site_title' => 'FooBar Service',
 ));
+$message->setTo('hoge@example.com');
 $app['mailer']->send($message);
 ```
 
