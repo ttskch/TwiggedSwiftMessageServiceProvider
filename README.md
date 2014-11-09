@@ -13,7 +13,18 @@ This is a service provider for [Silex](http://silex.sensiolabs.org/) which allow
 
 ## Getting started
 
-You must register both `TwigServiceProvider` and `SwiftmailerServicePorvider` on ahead.
+First add this dependency into your `composer.json`:
+
+```json
+{
+    "require": {
+        "qckanemoto/twig-message-service-provider": "~1.0"
+    }
+}
+```
+
+And enable this service provider in your application.
+Please notice that you must register both `TwigServiceProvider` and `SwiftmailerServicePorvider` on ahead.
 
 ```php
 $app->register(new TwigServiceProvider());
