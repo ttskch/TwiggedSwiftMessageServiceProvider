@@ -18,7 +18,7 @@ First add this dependency into your `composer.json`:
 ```json
 {
     "require": {
-        "qckanemoto/twig-message-service-provider": "~1.0"
+        "qckanemoto/twig-message-service-provider": "dev-master"
     }
 }
 ```
