@@ -17,19 +17,21 @@ class TwigMessageServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
+        if (!isset($app['twig'])) {
+            $app->register(new TwigServiceProvider());
+        }
+        if (!isset($app['mailer'])) {
+            $app->register(new SwiftmailerServiceProvider());
+        }
+
+        // add twig extension.
+        $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
+            $twig->addExtension(new TwigMessageExtension(new Embedder()));
+            return $twig;
+        }));
+
+        // service creator.
         $app['twig_message'] = $app->share(function ($app) {
-            if (!isset($app['twig'])) {
-                $app->register(new TwigServiceProvider());
-            }
-            if (!isset($app['mailer'])) {
-                $app->register(new SwiftmailerServiceProvider());
-            }
-
-            $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
-                $twig->addExtension(new TwigMessageExtension(new Embedder()));
-                return $twig;
-            }));
-
             return new TwigMessageService($app['twig'], new Embedder());
         });
     }

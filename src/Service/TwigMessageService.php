@@ -4,8 +4,6 @@ namespace Quartet\Silex\Service;
 
 use Quartet\Silex\Exception\RuntimeException;
 use Quartet\Silex\Service\ImageEmbedder\Embedder;
-use Quartet\Silex\Service\ImageEmbedder\Placeholder;
-use Quartet\Silex\Twig\Extension\TwigMessageExtension;
 use Silex\Application;
 use Symfony\Component\Form\Form;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
