@@ -1,32 +1,31 @@
 <?php
 namespace Quartet\Silex\Provider;
 
-use Quartet\Silex\Service\ImageEmbedder\Embedder;
-use Quartet\Silex\Twig\Extension\TwigMessageExtension;
 use Silex\Application;
 
 class TwigMessageServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var TwigMessageExtension */
-    private $extension;
-
-    protected function setUp()
-    {
-        $this->extension = new TwigMessageExtension(new Embedder());
-    }
-
     public function test_register()
     {
         $app = new Application();
-        $app->register(new TwigMessageServiceProvider());
 
-        $this->assertInstanceOf('Quartet\Silex\Service\TwigMessageService', $app['twig_message']);
-        $this->assertInstanceOf('Twig_Environment', $app['twig']);
-        $this->assertInstanceOf('Swift_Mailer', $app['mailer']);
+        $provider = new TwigMessageServiceProvider();
+        $provider->register($app);
 
+        // providers are registered.
+        $this->assertNotNull($app['twig']);
+        $this->assertNotNull($app['mailer']);
+
+        // TwigExtension is added.
+        $isExtensionRegistered = false;
         $extensions = $app['twig']->getExtensions();
-        $this->assertContains($this->extension->getName(), array_keys($extensions));
+        foreach (array_values($extensions) as $extension) {
+            if (get_class($extension) === 'Quartet\Silex\Twig\Extension\TwigMessageExtension') {}
+            $isExtensionRegistered = true;
+        }
+        $this->assertTrue($isExtensionRegistered);
 
-        $this->assertInstanceOf(get_class($this->extension), $extensions[$this->extension->getName()]);
+        // service is registered.
+        $this->assertInstanceOf('Quartet\Silex\Service\TwigMessageService', $app['twig_message']);
     }
 }
