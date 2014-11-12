@@ -76,7 +76,7 @@ class TwigMessageService
 
     /**
      * @param \Swift_Message $message
-     * @param $style
+     * @param string $style
      * @return \Swift_Message
      * @throws \Quartet\Silex\Exception\RuntimeException
      */
