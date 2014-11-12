@@ -7,21 +7,16 @@ use Quartet\Silex\Service\ImageEmbedder\Placeholder;
 
 class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var TwigMessageService */
-    protected $service;
-
     protected function setUp()
     {
-        $twig = $this->getMockTwigEnvironment();
-        $embedder = $this->getMockEmbedder();
-
-        $this->service = new TwigMessageService($twig, $embedder);
     }
 
     public function test_buildMessage()
     {
+        $service = $this->getMockService();
+
         /** @var \Swift_Message $message */
-        $message = $this->service->buildMessage('/path/to/template');
+        $message = $service->buildMessage('/path/to/template');
 
         $this->assertEquals(array('from@test.com' => 'from_name'), $message->getFrom());
         $this->assertEquals(array('to@test.com' => null), $message->getTo());
@@ -39,9 +34,10 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         $expectedBody = '<p style="color: #fff;">test</p>';
 
         $message = new \Swift_Message();
-
         $message->setBody($body, 'text/html');
-        $this->service->setInlineStyle($message, $style);
+
+        $service = $this->getMockService();
+        $service->setInlineStyle($message, $style);
 
         $this->assertContains($expectedBody, $message->getBody());
     }
@@ -56,93 +52,45 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         $message->setBody($body);
 
         $this->setExpectedException(get_class(new RuntimeException()));
-        $this->service->setInlineStyle($message, $style);
+
+        $service = $this->getMockService();
+        $service->setInlineStyle($message, $style);
     }
 
     public function test_finishEmbedImage()
     {
-        // todo: Phake version problem? I don't know why but can't mock 'Swift_Message' class with Phake...
-        /*
         $message = Phake::mock('Swift_Message');
 
         Phake::when($message)->getBody()->thenReturn('placeholder');
         Phake::when($message)->embed(Phake::anyParameters())->thenReturn('replacement');
 
-        $this->service->finishEmbedImage($message);
+        $service = $this->getMockService();
+        $service->finishEmbedImage($message);
 
         Phake::verify($message)->setBody('replacement');
-        */
-
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $embedder = $this->getMock('Quartet\Silex\Service\ImageEmbedder\Embedder');
-        $embedder
-            ->expects($this->once())
-            ->method('extractPlaceholders')
-            ->with($this->anything())
-            ->will($this->returnValue(array(new Placeholder('placeholder', '/path/to/image'))))
-        ;
-
-        $service = new TwigMessageService($twig, $embedder);
-
-        $message = $this->getMockBuilder('Swift_Message')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $message
-            ->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue('placeholder'))
-        ;
-        $message
-            ->expects($this->once())
-            ->method('embed')
-            ->with($this->anything())
-            ->will($this->returnValue('replacement'))
-        ;
-        $message
-            ->expects($this->once())
-            ->method('setBody')
-            ->with($this->equalTo('replacement'))
-        ;
-
-        $service->finishEmbedImage($message);
     }
 
     public function test_renderBody()
     {
-        // todo: want to use Phake::mock('Swift_Message')
+        $message = Phake::mock('Swift_Message');
 
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $embedder = $this->getMock('Quartet\Silex\Service\ImageEmbedder\Embedder');
-        $embedder
-            ->expects($this->once())
-            ->method('extractPlaceholders')
-            ->with($this->anything())
-            ->will($this->returnValue(array($placeholder = new Placeholder('placeholder', __DIR__ . '/../templates/images/silex.png'))))
-        ;
+        Phake::when($message)->getBody()->thenReturn('placeholder');
 
-        $service = new TwigMessageService($twig, $embedder);
+        $placeholder = new Placeholder('placeholder', __DIR__ . '/../templates/images/silex.png');
 
-        $message = $this->getMockBuilder('Swift_Message')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $message
-            ->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue('placeholder'))
-        ;
-
+        $service = $this->getMockService($placeholder);
         $body = $service->renderBody($message);
 
         $base64 = 'data:image/png;base64,' . base64_encode(file_get_contents($placeholder->getImagePath()));
         $this->assertEquals($base64, $body);
+    }
+
+    private function getMockService(Placeholder $placeholder = null)
+    {
+        $twig = $this->getMockTwigEnvironment();
+        $embedder = $this->getMockEmbedder($placeholder);
+
+        return new TwigMessageService($twig, $embedder);
     }
 
     private function getMockTwigEnvironment()
@@ -169,9 +117,12 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         return $twig;
     }
 
-    private function getMockEmbedder()
+    private function getMockEmbedder(Placeholder $placeholder = null)
     {
-        $placeholders = array(new Placeholder('placeholder', '/path/to/image'));
+        if (is_null($placeholder)) {
+            $placeholder = new Placeholder('placeholder', '/path/to/image');
+        }
+        $placeholders = array($placeholder);
 
         $embedder = Phake::mock('Quartet\Silex\Service\ImageEmbedder\Embedder');
         Phake::when($embedder)->extractPlaceholders(Phake::anyParameters())->thenReturn($placeholders);
