@@ -51,7 +51,6 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
     public function test_finishEmbedImage()
     {
         $message = Phake::mock('Swift_Message');
-
         Phake::when($message)->getBody()->thenReturn('placeholder');
         Phake::when($message)->embed(Phake::anyParameters())->thenReturn('replacement');
 
@@ -64,7 +63,6 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
     public function test_renderBody()
     {
         $message = Phake::mock('Swift_Message');
-
         Phake::when($message)->getBody()->thenReturn('placeholder');
 
         $placeholder = new Placeholder('placeholder', __DIR__ . '/../templates/images/silex.png');
@@ -87,13 +85,12 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
 
     private function getMockTwigEnvironment()
     {
-        $template = Phake::mock('\Twig_Template');
-
         $params = array(
             'vars' => array(),
             'form' => array(),
         );
 
+        $template = Phake::mock('Twig_Template');
         Phake::when($template)->renderBlock('from', $params)->thenReturn('from@test.com');
         Phake::when($template)->renderBlock('from_name', $params)->thenReturn('from_name');
         Phake::when($template)->renderBlock('to', $params)->thenReturn('to@test.com');
