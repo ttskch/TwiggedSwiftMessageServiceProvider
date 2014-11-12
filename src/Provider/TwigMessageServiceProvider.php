@@ -1,10 +1,10 @@
 <?php
 
-namespace Quartet\Silex\Provider;
+namespace Qck\Silex\Provider;
 
-use Quartet\Silex\Service\ImageEmbedder\Embedder;
-use Quartet\Silex\Service\TwigMessageService;
-use Quartet\Silex\Twig\Extension\TwigMessageExtension;
+use Qck\Silex\Service\ImageEmbedder\Embedder;
+use Qck\Silex\Service\TwigMessageService;
+use Qck\Silex\Twig\Extension\TwigMessageExtension;
 use Silex\Application;
 use Silex\Provider\SwiftmailerServiceProvider;
 use Silex\Provider\TwigServiceProvider;

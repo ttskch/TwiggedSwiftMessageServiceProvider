@@ -1,9 +1,9 @@
 <?php
 
-namespace Quartet\Silex\Service;
+namespace Qck\Silex\Service;
 
-use Quartet\Silex\Exception\RuntimeException;
-use Quartet\Silex\Service\ImageEmbedder\Embedder;
+use Qck\Silex\Exception\RuntimeException;
+use Qck\Silex\Service\ImageEmbedder\Embedder;
 use Silex\Application;
 use Symfony\Component\Form\Form;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
@@ -78,7 +78,7 @@ class TwigMessageService
      * @param \Swift_Message $message
      * @param string $style
      * @return \Swift_Message
-     * @throws \Quartet\Silex\Exception\RuntimeException
+     * @throws \Qck\Silex\Exception\RuntimeException
      */
     public function setInlineStyle(\Swift_Message $message, $style)
     {
@@ -105,7 +105,7 @@ class TwigMessageService
     {
         $body = $message->getBody();
 
-        /** @var \Quartet\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
+        /** @var \Qck\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
         $placeholders = $this->embedder->extractPlaceholders($body);
 
         foreach ($placeholders as $placeholder) {
@@ -126,7 +126,7 @@ class TwigMessageService
     {
         $body = $message->getBody();
 
-        /** @var \Quartet\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
+        /** @var \Qck\Silex\Service\ImageEmbedder\Placeholder[] $placeholders */
         $placeholders = $this->embedder->extractPlaceholders($body);
 
         foreach ($placeholders as $placeholder) {

@@ -29,7 +29,7 @@ Please notice that you must register both `TwigServiceProvider` and `Swiftmailer
 ```php
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
-$app->register(new Quartet\Silex\Provider\TwigMailerServiceProvider());
+$app->register(new Qck\Silex\Provider\TwigMessageServiceProvider());
 ```
 
 Then you can send Twig templated email as below:

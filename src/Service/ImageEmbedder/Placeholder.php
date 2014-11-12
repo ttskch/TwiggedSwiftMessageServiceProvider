@@ -1,5 +1,5 @@
 <?php
-namespace Quartet\Silex\Service\ImageEmbedder;
+namespace Qck\Silex\Service\ImageEmbedder;
 
 class Placeholder
 {

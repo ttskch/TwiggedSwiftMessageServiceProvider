@@ -1,7 +1,7 @@
 <?php
-namespace Quartet\Silex;
+namespace Qck\Silex;
 
-use Quartet\Silex\Provider\TwigMessageServiceProvider;
+use Qck\Silex\Provider\TwigMessageServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\TwigServiceProvider;

@@ -1,7 +1,7 @@
 <?php
-namespace Quartet\Silex\Twig\Extension;
+namespace Qck\Silex\Twig\Extension;
 
-use Quartet\Silex\Service\ImageEmbedder\Embedder;
+use Qck\Silex\Service\ImageEmbedder\Embedder;
 use Silex\Application;
 
 class TwigMessageExtension extends \Twig_Extension
@@ -27,6 +27,6 @@ class TwigMessageExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'quartet_silex_twig_message_extension';
+        return 'qck_silex_twig_message_extension';
     }
 }

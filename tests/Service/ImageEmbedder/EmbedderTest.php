@@ -1,7 +1,7 @@
 <?php
-namespace Quartet\Silex\Service\ImageEmbedder;
+namespace Qck\Silex\Service\ImageEmbedder;
 
-use Quartet\Silex\Exception\RuntimeException;
+use Qck\Silex\Exception\RuntimeException;
 
 class EmbedderTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class EmbedderTest extends \PHPUnit_Framework_TestCase
     public function test_getPlaceholder()
     {
         $placeholder = $this->embedder->getPlaceholder('/path/to/image');
-        $this->assertInstanceOf('\Quartet\Silex\Service\ImageEmbedder\Placeholder', $placeholder);
+        $this->assertInstanceOf('\Qck\Silex\Service\ImageEmbedder\Placeholder', $placeholder);
     }
 
     public function test_getPlaceholder_error_for_non_string()
@@ -34,6 +34,6 @@ class EmbedderTest extends \PHPUnit_Framework_TestCase
         $placeholders = $this->embedder->extractPlaceholders($body);
 
         $this->assertCount(2, $placeholders);
-        $this->assertInstanceOf('\Quartet\Silex\Service\ImageEmbedder\Placeholder', $placeholders[0]);
+        $this->assertInstanceOf('\Qck\Silex\Service\ImageEmbedder\Placeholder', $placeholders[0]);
     }
 }

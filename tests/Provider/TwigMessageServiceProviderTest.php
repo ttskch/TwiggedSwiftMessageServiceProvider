@@ -1,5 +1,5 @@
 <?php
-namespace Quartet\Silex\Provider;
+namespace Qck\Silex\Provider;
 
 use Silex\Application;
 
@@ -20,12 +20,12 @@ class TwigMessageServiceProviderTest extends \PHPUnit_Framework_TestCase
         $isExtensionRegistered = false;
         $extensions = $app['twig']->getExtensions();
         foreach (array_values($extensions) as $extension) {
-            if (get_class($extension) === 'Quartet\Silex\Twig\Extension\TwigMessageExtension') {}
+            if (get_class($extension) === 'Qck\Silex\Twig\Extension\TwigMessageExtension') {}
             $isExtensionRegistered = true;
         }
         $this->assertTrue($isExtensionRegistered);
 
         // service is registered.
-        $this->assertInstanceOf('Quartet\Silex\Service\TwigMessageService', $app['twig_message']);
+        $this->assertInstanceOf('Qck\Silex\Service\TwigMessageService', $app['twig_message']);
     }
 }

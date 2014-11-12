@@ -1,11 +1,11 @@
 <?php
-namespace Quartet\Silex\Service\ImageEmbedder;
+namespace Qck\Silex\Service\ImageEmbedder;
 
-use Quartet\Silex\Exception\RuntimeException;
+use Qck\Silex\Exception\RuntimeException;
 
 class Embedder
 {
-    private $placeholderPattern = ';quartet_silex_twig_message_extension;%s;';
+    private $placeholderPattern = ';qck_silex_twig_message_extension;%s;';
 
     public function getPlaceholder($imagePath)
     {

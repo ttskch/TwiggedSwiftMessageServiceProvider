@@ -1,8 +1,8 @@
 <?php
-namespace Quartet\Silex\Service;
+namespace Qck\Silex\Service;
 
 use Phake;
-use Quartet\Silex\Service\ImageEmbedder\Placeholder;
+use Qck\Silex\Service\ImageEmbedder\Placeholder;
 
 class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,7 +42,7 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         $message = Phake::mock('Swift_Message');
         Phake::when($message)->getContentType()->thenReturn('text/plain');
 
-        $this->setExpectedException('Quartet\Silex\Exception\RuntimeException');
+        $this->setExpectedException('Qck\Silex\Exception\RuntimeException');
 
         $service = $this->getMockService();
         $service->setInlineStyle($message, 'style');
@@ -113,7 +113,7 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         }
         $placeholders = array($placeholder);
 
-        $embedder = Phake::mock('Quartet\Silex\Service\ImageEmbedder\Embedder');
+        $embedder = Phake::mock('Qck\Silex\Service\ImageEmbedder\Embedder');
         Phake::when($embedder)->extractPlaceholders(Phake::anyParameters())->thenReturn($placeholders);
         Phake::when($embedder)->extractPlaceholders(Phake::anyParameters())->thenReturn($placeholders);
 
