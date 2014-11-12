@@ -12,16 +12,18 @@ class TwigMessageService
 {
     private $twig;
     private $embedder;
+    private $styler;
 
     /**
      * @param \Twig_Environment $twig
      * @param \Swift_Mailer $mailer
      * @param array $options
      */
-    public function __construct(\Twig_Environment $twig, Embedder $embedder)
+    public function __construct(\Twig_Environment $twig, Embedder $embedder, CssToInlineStyles $styler)
     {
         $this->twig = $twig;
         $this->embedder = $embedder;
+        $this->styler = $styler;
     }
 
     /**
@@ -86,8 +88,10 @@ class TwigMessageService
 
         $html = $message->getBody();
         $html = mb_convert_encoding($html, 'html-entities', 'auto');
-        $setter = new CssToInlineStyles($html, $style);
-        $styledHtml = $setter->convert();
+
+        $this->styler->setHTML($html);
+        $this->styler->setCSS($style);
+        $styledHtml = $this->styler->convert();
         $message->setBody($styledHtml);
 
         return $message;

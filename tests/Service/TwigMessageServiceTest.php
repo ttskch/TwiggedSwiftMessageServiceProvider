@@ -2,7 +2,6 @@
 namespace Quartet\Silex\Service;
 
 use Phake;
-use Quartet\Silex\Exception\RuntimeException;
 use Quartet\Silex\Service\ImageEmbedder\Placeholder;
 
 class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
@@ -29,32 +28,24 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
 
     public function test_setInlineStyle()
     {
-        $body = '<p>test</p>';
-        $style = 'p { color: #fff; }';
-        $expectedBody = '<p style="color: #fff;">test</p>';
-
-        $message = new \Swift_Message();
-        $message->setBody($body, 'text/html');
+        $message = Phake::mock('Swift_Message');
+        Phake::when($message)->getContentType()->thenReturn('text/html');
 
         $service = $this->getMockService();
-        $service->setInlineStyle($message, $style);
+        $service->setInlineStyle($message, 'style');
 
-        $this->assertContains($expectedBody, $message->getBody());
+        Phake::verify($message)->setBody('styled html');
     }
 
     public function test_setInlineStyle_error_for_plain_text()
     {
-        $body = '<p>test</p>';
-        $style = 'p { color: #fff; }';
+        $message = Phake::mock('Swift_Message');
+        Phake::when($message)->getContentType()->thenReturn('text/plain');
 
-        $message = new \Swift_Message();
-
-        $message->setBody($body);
-
-        $this->setExpectedException(get_class(new RuntimeException()));
+        $this->setExpectedException('Quartet\Silex\Exception\RuntimeException');
 
         $service = $this->getMockService();
-        $service->setInlineStyle($message, $style);
+        $service->setInlineStyle($message, 'style');
     }
 
     public function test_finishEmbedImage()
@@ -89,8 +80,9 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
     {
         $twig = $this->getMockTwigEnvironment();
         $embedder = $this->getMockEmbedder($placeholder);
+        $styler = $this->getMockStyler();
 
-        return new TwigMessageService($twig, $embedder);
+        return new TwigMessageService($twig, $embedder, $styler);
     }
 
     private function getMockTwigEnvironment()
@@ -129,5 +121,13 @@ class TwigMessageServiceTest extends \PHPUnit_Framework_TestCase
         Phake::when($embedder)->extractPlaceholders(Phake::anyParameters())->thenReturn($placeholders);
 
         return $embedder;
+    }
+
+    private function getMockStyler()
+    {
+        $styler = Phake::mock('TijsVerkoyen\CssToInlineStyles\CssToInlineStyles');
+        Phake::when($styler)->convert()->thenReturn('styled html');
+
+        return $styler;
     }
 }

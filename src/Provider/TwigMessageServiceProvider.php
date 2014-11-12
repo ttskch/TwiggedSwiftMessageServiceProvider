@@ -9,6 +9,7 @@ use Silex\Application;
 use Silex\Provider\SwiftmailerServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\ServiceProviderInterface;
+use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class TwigMessageServiceProvider implements ServiceProviderInterface
 {
@@ -32,7 +33,7 @@ class TwigMessageServiceProvider implements ServiceProviderInterface
 
         // service creator.
         $app['twig_message'] = $app->share(function ($app) {
-            return new TwigMessageService($app['twig'], new Embedder());
+            return new TwigMessageService($app['twig'], new Embedder(), new CssToInlineStyles());
         });
     }
 
