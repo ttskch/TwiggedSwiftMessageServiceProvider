@@ -10,18 +10,17 @@ class FormHandler
         $data = array();
 
         foreach ($form->getIterator() as $child) {
-            /** @var \Symfony\Component\Form\Form $child */
+            /** @var \Symfony\Component\Form\FormInterface $child */
 
-            $value = $child->getData();
+            // process custom field recursively.
+            if ($child->count() > 0) {
+                $data[$child->getName()] = $this->getDataArray($child);
 
-            // process two-dimensional array.
-            if (is_array($value) && array_values($value) !== $value) {
-                $data[$child->getName()] = $this->getData($child);
             } else {
                 $label = $child->getConfig()->getOption('label');
                 $data[$child->getName()] = array(
                     'label' => $label ?: $this->humanize($child->getName()),
-                    'value' => $value,
+                    'value' => $child->getData(),
                 );
             }
         }

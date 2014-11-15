@@ -4,6 +4,8 @@ namespace Qck\Silex\Service;
 use Qck\Silex\Provider\TwiggedSwiftMessageServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class FormHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +22,7 @@ class FormHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $form = $this->app['form.factory']->createBuilder('form')
             ->add('name', 'text', array(
-                'label' => 'Name',
+                'label' => 'NAME',
                 'data' => 'Takashi',
             ))
             ->add('email', 'email', array(
@@ -30,9 +32,10 @@ class FormHandlerTest extends \PHPUnit_Framework_TestCase
         ;
 
         $array = $this->app['twigged_message.form_handler']->getDataArray($form);
+
         $expected = array(
             'name' => array(
-                'label' => 'Name',
+                'label' => 'NAME',
                 'value' => 'Takashi',
             ),
             'email' => array(
@@ -42,5 +45,64 @@ class FormHandlerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expected, $array);
+    }
+
+    public function test_getDataArray_with_custom_type()
+    {
+        $form = $this->app['form.factory']->createBuilder('form')
+            ->add('name', 'text', array(
+                'data' => 'Takashi',
+            ))
+            ->add('email', 'email', array(
+                'data' => 'takashi@example.com',
+            ))
+            ->add('options', new SampleCustomFormType())
+            ->getForm()
+        ;
+
+        $array = $this->app['twigged_message.form_handler']->getDataArray($form);
+
+        $expected = array(
+            'name' => array(
+                'label' => 'Name',
+                'value' => 'Takashi',
+            ),
+            'email' => array(
+                'label' => 'Email',
+                'value' => 'takashi@example.com',
+            ),
+            'options' => array(
+                'age' => array(
+                    'label' => 'Age',
+                    'value' => '30',
+                ),
+                'hobby' => array(
+                    'label' => 'Hobby',
+                    'value' => 'programing',
+                ),
+            )
+        );
+
+        $this->assertEquals($expected, $array);
+    }
+}
+
+class SampleCustomFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('age', 'integer', array(
+                'data' => '30',
+            ))
+            ->add('hobby', 'text', array(
+                'data' => 'programing',
+            ))
+        ;
+    }
+
+    public function getName()
+    {
+        return 'qck_silex_sample_type';
     }
 }
