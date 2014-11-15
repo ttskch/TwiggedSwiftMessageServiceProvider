@@ -28,6 +28,13 @@ class FormHandlerTest extends \PHPUnit_Framework_TestCase
             ->add('email', 'email', array(
                 'data' => 'takashi@example.com',
             ))
+            ->add('gender', 'choice', array(
+                'choices' => array(
+                    'male' => 'MALE',
+                    'female' => 'FEMALE',
+                ),
+                'data' => 'male',
+            ))
             ->getForm()
         ;
 
@@ -41,6 +48,10 @@ class FormHandlerTest extends \PHPUnit_Framework_TestCase
             'email' => array(
                 'label' => 'Email', // will be humanized field name automatically.
                 'value' => 'takashi@example.com',
+            ),
+            'gender' => array(
+                'label' => 'Gender',
+                'value' => 'male',
             ),
         );
 
