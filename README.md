@@ -90,4 +90,4 @@ Offcourse you also can access to your custom field type as below:
 
 ## Enjoy!
 
-See also [functional tests](tests/FunctionalTest.php) to understand basic usages.
+See more detailed documentation [here](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder/blob/master/README.md).
