@@ -12,8 +12,10 @@ class FormHandler
         foreach ($form->getIterator() as $child) {
             /** @var \Symfony\Component\Form\FormInterface $child */
 
+            $value = $child->getData();
+
             // process custom field recursively.
-            if ($child->count() > 0) {
+            if (is_null($value) || (is_array($value) && array_values($value) !== $value)) {
                 $data[$child->getName()] = $this->getDataArray($child);
 
             } else {
