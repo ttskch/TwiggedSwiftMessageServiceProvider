@@ -43,7 +43,9 @@ See more detailed documentation [here](https://github.com/qckanemoto/TwiggedSwif
 
 ## Use submitted form data in Twig template
 
-You also can use submitted form data in Twig template easily.
+This service provider provides one additional feature to use submitted form data in Twig template easily.
+`$app['twigged_swiftmessage.form_handler']` allows you to extract data array from `Form` object.
+
 Labels and values of each fields can be used as below:
 
  * `{{ form.[field-name].label }}`
@@ -74,15 +76,16 @@ For example:
 
 $form->handleRequest($request);
 if ($form->isValid()) {
-    $message = $app['twig_message']->buildMessage('email.txt.twig', array(), $form);
+    $array = $app['twigged_message.form_handler']->getDataArray($form);
+    $message = $app['twigged_message']->buildMessage('email.txt.twig', array('form' => $array));
     $app['mailer']->send($message);
 }
 ```
 
 Offcourse you also can access to your custom field type as below:
 
- * `{{ vars.[parent-field].[child-field].label }}`
- * `{{ vars.[parent-field].[child-field].value }}`
+ * `{{ form.[parent-field].[child-field].label }}`
+ * `{{ form.[parent-field].[child-field].value }}`
 
 ## Enjoy!
 
