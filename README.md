@@ -1,15 +1,14 @@
-# TwigMessageServiceProvider
+# TwiggedSwiftMessageServiceProvider
 
-[![Build Status](https://travis-ci.org/qckanemoto/TwigMessageServiceProvider.svg?branch=master)](https://travis-ci.org/qckanemoto/TwigMessageServiceProvider)
-[![Latest Stable Version](https://poser.pugx.org/qckanemoto/twig-message-service-provider/v/stable.svg)](https://packagist.org/packages/qckanemoto/twig-message-service-provider)
-[![Total Downloads](https://poser.pugx.org/qckanemoto/twig-message-service-provider/downloads.svg)](https://packagist.org/packages/qckanemoto/twig-message-service-provider)
+[![Build Status](https://travis-ci.org/qckanemoto/TwiggedSwiftMessageServiceProvider.svg?branch=master)](https://travis-ci.org/qckanemoto/TwiggedSwiftMessageServiceProvider)
+[![Latest Stable Version](https://poser.pugx.org/qckanemoto/twigged-swiftmessage-service-provider/v/stable.svg)](https://packagist.org/packages/qckanemoto/twigged-swiftmessage-service-provider)
+[![Total Downloads](https://poser.pugx.org/qckanemoto/twigged-swiftmessage-service-provider/downloads.svg)](https://packagist.org/packages/qckanemoto/twigged-swiftmessage-service-provider)
 
-This is a service provider for [Silex](http://silex.sensiolabs.org/) which allows you following things:
+This is a service provider of [TwiggedSwiftMessageBuilder](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder) for [Silex](http://silex.sensiolabs.org/).
 
- * to create Twig templated Swift_Message
- * to use submitted form data in Twig template easily
- * to create inline styled html email from unstyled html and css strings
- * to embed some image files into message body
+## Requirements
+
+* PHP 5.3+
 
 ## Getting started
 
@@ -18,7 +17,7 @@ First add this dependency into your `composer.json`:
 ```json
 {
     "require": {
-        "qckanemoto/twig-message-service-provider": "dev-master"
+        "qckanemoto/twigged-swiftmessage-service-provider": "dev-master"
     }
 }
 ```
@@ -29,62 +28,18 @@ Please notice that you must register both `TwigServiceProvider` and `Swiftmailer
 ```php
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
-$app->register(new Qck\Silex\Provider\TwigMessageServiceProvider());
+$app->register(new \Qck\Silex\Provider\TwiggedSwiftMessageServiceProvider());
 ```
 
-Then you can send Twig templated email as below:
-
-```twig
-{# email.txt.twig #}
-
-{% block from %}no-reply@example.com{% endblock %}
-{% block from_name %}[Example]{% endblock %}
-{% block subject %}Welcome to [Example]!{% endblock %}
-
-{% block body %}
-Hello [Example] World!
-{% endblock %}
-```
+Then you can build `Swift_Message` object via twig template.
 
 ```php
-// in your controller.
-
-$message = $app['twig_message']->buildMessage('email.txt.twig');
+$message = $app['twigged_message']->buildMessage('email.txt.twig');
 $message->setTo('hoge@example.com');
 $app['mailer']->send($message);
 ```
 
-In Twig template you can define many things by using `{% block [field-name] %}{% endblock %}`.
-These fields can be defined.
-
- * from
- * from_name
- * to
- * cc
- * bcc
- * reply_to
- * subject
- * body
-
-## Use variables in Twig template
-
-Offcourse you can pass variables and use them in Twig template with `{{ vars }}` as below:
-
-```twig
-{# email.txt.twig #}
-
-{% block subject %}Welcome to {{ vars.site_title }}!{% endblock %}
-```
-
-```php
-// in your controller.
-
-$message = $app['twig_message']->buildMessage('email.txt.twig', array(
-    'site_title' => 'FooBar Service',
-));
-$message->setTo('hoge@example.com');
-$app['mailer']->send($message);
-```
+See more detailed documentation [here](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder/blob/master/README.md).
 
 ## Use submitted form data in Twig template
 
@@ -128,49 +83,6 @@ Offcourse you also can access to your custom field type as below:
 
  * `{{ vars.[parent-field].[child-field].label }}`
  * `{{ vars.[parent-field].[child-field].value }}`
-
-## Use inline-styled html email
-
-You can make inline-styled html from unstyled html and css strings.
-To allow recipients of your html email to receive it with Gmail, you will have to make inline-styled html body.
-
-```php
-// in your controller.
-
-$message = $app['twig_message']->buildMessage('email.html.twig');
-
-$style = file_get_contents('/path/to/style.css');
-
-$message = $app['twig_message']->setInlineStyle($message, $style);
-```
-
-> **Note**
-> This functionality is using `mb_convert_encoding()` with `'auto'` internally. So if you use this you **must** set `mbstring.language` in php.ini or call `mb_language('your_language')` on ahead.
->
-> **注意**
-> この機能は内部的に `mb_convert_encoding()` に `'auto'` を渡して実行します。なので、php.ini で `mbstring.language` を設定するか、`mb_language('Japanese')` を事前に実行しておく必要があります。
-
-## Embed some image files into message body
-
-You can embed images into message body as below:
-
-```twig
-{# email.html.twig #}
-
-{% block body %}
-<img src="{{ embed_image(image_path) }}"/>
-{% endblock %}
-```
-
-```php
-// in your controller.
-
-$message = $app['twig_message']->buildMessage('email.html.twig', array(
-    'image_path' => '/path/to/image/file',
-));
-
-$message = $app['twig_message']->finishEmbedImage($message);
-```
 
 ## Enjoy!
 
