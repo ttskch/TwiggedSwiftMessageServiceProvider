@@ -18,7 +18,8 @@ First add this dependency into your `composer.json`:
 {
     "require": {
         "qckanemoto/twigged-swiftmessage-service-provider": "dev-master"
-    }
+    },
+    "minimum-stability": "dev"
 }
 ```
 
