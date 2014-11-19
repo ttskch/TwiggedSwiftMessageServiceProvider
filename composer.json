@@ -18,7 +18,7 @@
         "silex/silex": "~1.0",
         "symfony/form": "~2.3",
         "symfony/security-csrf": "~2.4",
-        "qckanemoto/twigged-swiftmessage-builder": "dev-master"
+        "qckanemoto/twigged-swiftmessage-builder": "1.0.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
@@ -27,6 +27,11 @@
     "autoload": {
         "psr-4": {
             "Qck\\Silex\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     }
 }
