@@ -1,7 +1,7 @@
 <?php
-namespace Qck\Silex\Service;
+namespace Tch\Silex\Service;
 
-use Qck\Silex\Provider\TwiggedSwiftMessageServiceProvider;
+use Tch\Silex\Provider\TwiggedSwiftMessageServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
 use Symfony\Component\Form\AbstractType;
@@ -114,6 +114,6 @@ class SampleCustomFormType extends AbstractType
 
     public function getName()
     {
-        return 'qck_silex_sample_type';
+        return 'tch_silex_sample_type';
     }
 }

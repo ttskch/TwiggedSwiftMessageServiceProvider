@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Qck.TwiggedSwiftMessageServiceProvider">
-    <description>Qck.TwiggedSwiftMessageServiceProvider coding standard.</description>
+<ruleset name="Tch.TwiggedSwiftMessageServiceProvider">
+    <description>Tch.TwiggedSwiftMessageServiceProvider coding standard.</description>
     <!-- 2. General -->
     <rule ref="Generic.NamingConventions.UpperCaseConstantName">
         <exclude name="Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase"/>

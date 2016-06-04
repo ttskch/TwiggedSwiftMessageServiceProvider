@@ -7,13 +7,13 @@
          verbose="true"
 		 colors="true">
   <testsuites>
-    <testsuite name="Qck.TwiggedSwiftMessageServiceProvider">
+    <testsuite name="Tch.TwiggedSwiftMessageServiceProvider">
       <directory suffix="Test.php">tests</directory>
     </testsuite>
   </testsuites>
 
   <logging>
-    <log type="coverage-html" target="build/coverage" title="Qck.TwiggedSwiftMessageServiceProvider"
+    <log type="coverage-html" target="build/coverage" title="Tch.TwiggedSwiftMessageServiceProvider"
          charset="UTF-8" yui="true" highlight="true"
          lowUpperBound="35" highLowerBound="70"/>
     <log type="coverage-clover" target="build/logs/clover.xml"/>

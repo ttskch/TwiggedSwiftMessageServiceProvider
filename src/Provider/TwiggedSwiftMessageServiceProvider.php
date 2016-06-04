@@ -1,9 +1,9 @@
 <?php
 
-namespace Qck\Silex\Provider;
+namespace Tch\Silex\Provider;
 
-use Qck\Silex\Service\FormHandler;
-use Qck\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder;
+use Tch\Silex\Service\FormHandler;
+use Tch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder;
 use Silex\Application;
 use Silex\Provider\SwiftmailerServiceProvider;
 use Silex\Provider\TwigServiceProvider;

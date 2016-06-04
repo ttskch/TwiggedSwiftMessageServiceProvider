@@ -1,8 +1,8 @@
 {
-    "name": "qckanemoto/twigged-swiftmessage-service-provider",
+    "name": "ttskch/twigged-swiftmessage-service-provider",
     "description": "Twig templated Swift_Message builder service provider for the Silex microframework.",
     "keywords": ["Silex", "Twig", "Swift_Message", "Swift_Mailer"],
-    "homepage": "https://github.com/qckanemoto/TwiggedSwiftMessageServiceProvider",
+    "homepage": "https://github.com/ttskch/TwiggedSwiftMessageServiceProvider",
     "config": {
         "bin-dir": "bin"
     },
@@ -18,7 +18,7 @@
         "silex/silex": "~1.0",
         "symfony/form": "~2.3",
         "symfony/security-csrf": "~2.4",
-        "qckanemoto/twigged-swiftmessage-builder": "1.0.*@dev"
+        "ttskch/twigged-swiftmessage-builder": "1.0.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Qck\\Silex\\": "src/"
+            "Tch\\Silex\\": "src/"
         }
     },
     "extra": {

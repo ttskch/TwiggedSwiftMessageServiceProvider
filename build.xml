@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Qck.TwigMessageServiceProvider" default="build">
+<project name="Tch.TwigMessageServiceProvider" default="build">
     <property name="composer.path" value="${basedir}/composer.phar" />
     <available property="composer.exists" file="${composer.path}" />
 

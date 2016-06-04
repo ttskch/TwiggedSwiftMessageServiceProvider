@@ -1,10 +1,10 @@
 # TwiggedSwiftMessageServiceProvider
 
-[![Build Status](https://travis-ci.org/qckanemoto/TwiggedSwiftMessageServiceProvider.svg?branch=master)](https://travis-ci.org/qckanemoto/TwiggedSwiftMessageServiceProvider)
-[![Latest Stable Version](https://poser.pugx.org/qckanemoto/twigged-swiftmessage-service-provider/v/stable.svg)](https://packagist.org/packages/qckanemoto/twigged-swiftmessage-service-provider)
-[![Total Downloads](https://poser.pugx.org/qckanemoto/twigged-swiftmessage-service-provider/downloads.svg)](https://packagist.org/packages/qckanemoto/twigged-swiftmessage-service-provider)
+[![Build Status](https://travis-ci.org/ttskch/TwiggedSwiftMessageServiceProvider.svg?branch=master)](https://travis-ci.org/ttskch/TwiggedSwiftMessageServiceProvider)
+[![Latest Stable Version](https://poser.pugx.org/ttskch/twigged-swiftmessage-service-provider/v/stable.svg)](https://packagist.org/packages/ttskch/twigged-swiftmessage-service-provider)
+[![Total Downloads](https://poser.pugx.org/ttskch/twigged-swiftmessage-service-provider/downloads.svg)](https://packagist.org/packages/ttskch/twigged-swiftmessage-service-provider)
 
-This is a service provider of [TwiggedSwiftMessageBuilder](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder) for [Silex](http://silex.sensiolabs.org/).
+This is a service provider of [TwiggedSwiftMessageBuilder](https://github.com/ttskch/TwiggedSwiftMessageBuilder) for [Silex](http://silex.sensiolabs.org/).
 
 ## Requirements
 
@@ -17,7 +17,7 @@ First add this dependency into your `composer.json`:
 ```json
 {
     "require": {
-        "qckanemoto/twigged-swiftmessage-service-provider": "1.0.*@dev"
+        "ttskch/twigged-swiftmessage-service-provider": "1.0.*@dev"
     },
     "minimum-stability": "dev"
 }
@@ -29,7 +29,7 @@ Please notice that you must register both `TwigServiceProvider` and `Swiftmailer
 ```php
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
-$app->register(new \Qck\Silex\Provider\TwiggedSwiftMessageServiceProvider());
+$app->register(new \Tch\Silex\Provider\TwiggedSwiftMessageServiceProvider());
 ```
 
 Then you can build `Swift_Message` object via twig template.
@@ -40,7 +40,7 @@ $message->setTo('hoge@example.com');
 $app['mailer']->send($message);
 ```
 
-See more detailed documentation [here](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder/blob/master/README.md).
+See more detailed documentation [here](https://github.com/ttskch/TwiggedSwiftMessageBuilder/blob/master/README.md).
 
 ## Use submitted form data in Twig template
 
@@ -90,4 +90,4 @@ Offcourse you also can access to your custom field type as below:
 
 ## Enjoy!
 
-See more detailed documentation [here](https://github.com/qckanemoto/TwiggedSwiftMessageBuilder/blob/master/README.md).
+See more detailed documentation [here](https://github.com/ttskch/TwiggedSwiftMessageBuilder/blob/master/README.md).

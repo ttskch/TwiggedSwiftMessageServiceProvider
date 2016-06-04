@@ -1,5 +1,5 @@
 <?php
-namespace Qck\Silex\Provider;
+namespace Tch\Silex\Provider;
 
 use Silex\Application;
 
@@ -17,7 +17,7 @@ class TwiggedSwiftMessageServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($app['mailer']);
 
         // services are registered.
-        $this->assertInstanceOf('Qck\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder', $app['twigged_message']);
-        $this->assertInstanceOf('Qck\Silex\Service\FormHandler', $app['twigged_message.form_handler']);
+        $this->assertInstanceOf('Tch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder', $app['twigged_message']);
+        $this->assertInstanceOf('Tch\Silex\Service\FormHandler', $app['twigged_message.form_handler']);
     }
 }
