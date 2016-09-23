@@ -29,7 +29,7 @@ Please notice that you must register both `TwigServiceProvider` and `Swiftmailer
 ```php
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
-$app->register(new \Tch\Silex\Provider\TwiggedSwiftMessageServiceProvider());
+$app->register(new \Ttskch\Silex\Provider\TwiggedSwiftMessageServiceProvider());
 ```
 
 Then you can build `Swift_Message` object via twig template.

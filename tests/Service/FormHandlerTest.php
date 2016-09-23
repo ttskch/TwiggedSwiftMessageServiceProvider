@@ -1,7 +1,7 @@
 <?php
-namespace Tch\Silex\Service;
+namespace Ttskch\Silex\Service;
 
-use Tch\Silex\Provider\TwiggedSwiftMessageServiceProvider;
+use Ttskch\Silex\Provider\TwiggedSwiftMessageServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
 use Symfony\Component\Form\AbstractType;
