@@ -17,9 +17,8 @@ First add this dependency into your `composer.json`:
 ```json
 {
     "require": {
-        "ttskch/twigged-swiftmessage-service-provider": "1.0.*@dev"
-    },
-    "minimum-stability": "dev"
+        "ttskch/twigged-swiftmessage-service-provider": "~2.0"
+    }
 }
 ```
 
