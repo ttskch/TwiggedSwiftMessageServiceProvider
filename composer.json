@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tch\\Silex\\": "src/"
+            "Ttskch\\Silex\\": "src/"
         }
     },
     "extra": {
