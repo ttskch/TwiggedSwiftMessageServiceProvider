@@ -3,7 +3,7 @@
 namespace Ttskch\Silex\Provider;
 
 use Ttskch\Silex\Service\FormHandler;
-use Tch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder;
+use Ttskch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder;
 use Silex\Application;
 use Silex\Provider\SwiftmailerServiceProvider;
 use Silex\Provider\TwigServiceProvider;

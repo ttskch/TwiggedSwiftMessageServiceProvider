@@ -17,7 +17,7 @@ class TwiggedSwiftMessageServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($app['mailer']);
 
         // services are registered.
-        $this->assertInstanceOf('Tch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder', $app['twigged_message']);
+        $this->assertInstanceOf('Ttskch\TwiggedSwiftMessageBuilder\TwiggedSwiftMessageBuilder', $app['twigged_message']);
         $this->assertInstanceOf('Ttskch\Silex\Service\FormHandler', $app['twigged_message.form_handler']);
     }
 }
